@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camisetas</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("form").submit(function (e) {
+                e.preventDefault();
+                let dados = {
+                    campo1: $("#input_cor").val(),
+                    campo2: $("#input_tamanho").val()
+                };
+
+                $.ajax({
+                    url: "insere.php",
+                    type: "POST",
+                    data: dados,
+                    dataType: "html"
+                })
+                    .done(function (resposta) {
+                        alert("Sucesso: " + resposta);
+                    })
+                    .fail(function (jqXHR, textStatus) {
+                        console.error("Erro na requisição: " + textStatus);
+                    });
+            });
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+    <h1>Escolha as informações da sua camiseta!</h1>
+
+    <h3>Cor</h3>
+    <form>
+
+        <input list="cores" name="cores" id="input_cor">
+
+        <datalist id="cores">
+            <option value="Azul">
+            <option value="Amarelo">
+            <option value="Branco">
+            <option value="Preto">
+            <option value="Rosa">
+            <option value="Roxo">
+        </datalist>
+
+        <h3>Tamanho</h3>
+
+        <input list="tamanho" name="tamanho" id="input_tamanho">
+
+        <datalist id="tamanho">
+            <option value="PP">
+            <option value="P">
+            <option value="M">
+            <option value="G">
+            <option value="GG">
+            <option value="XG">
+        </datalist>
+
+        <br><br>
+
+        <input type="submit">
+
+    </form>
+
+</body>
+
+</html>

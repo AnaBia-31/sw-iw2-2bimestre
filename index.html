@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Camisetas</title>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+        function atualizarTabela() {
+            $.ajax({
+                url: "Consulta3.php",
+                type: "GET",
+                success: function(resultado) {
+                    $("#tabela").html(resultado);
+                },
+                error: function() {
+                    console.error("Erro ao carregar a tabela.");
+                }
+            });
+        }
+
         $(document).ready(function () {
+            atualizarTabela();
 
             $("form").submit(function (e) {
                 e.preventDefault();
@@ -24,28 +36,24 @@
                     data: dados,
                     dataType: "html"
                 })
-                    .done(function (resposta) {
-                        alert("Sucesso: " + resposta);
-                    })
-                    .fail(function (jqXHR, textStatus) {
-                        console.error("Erro na requisição: " + textStatus);
-                    });
+                .done(function (resposta) {
+                    alert("Sucesso: " + resposta);
+                    atualizarTabela(); 
+                })
+                .fail(function (jqXHR, textStatus) {
+                    console.error("Erro na requisição: " + textStatus);
+                });
             });
         });
-
     </script>
-
 </head>
-
 <body>
 
     <h1>Escolha as informações da sua camiseta!</h1>
 
     <h3>Cor</h3>
     <form>
-
         <input list="cores" name="cores" id="input_cor">
-
         <datalist id="cores">
             <option value="Azul">
             <option value="Amarelo">
@@ -56,9 +64,7 @@
         </datalist>
 
         <h3>Tamanho</h3>
-
         <input list="tamanho" name="tamanho" id="input_tamanho">
-
         <datalist id="tamanho">
             <option value="PP">
             <option value="P">
@@ -67,13 +73,14 @@
             <option value="GG">
             <option value="XG">
         </datalist>
-
         <br><br>
-
-        <input type="submit">
-
+        <input type="submit" value="Enviar">
     </form>
 
-</body>
+    <br>
+    <hr>
+    <h2>Camisetas Cadastradas</h2>
+    <div id="tabela">Carregando tabela...</div>
 
+</body>
 </html>

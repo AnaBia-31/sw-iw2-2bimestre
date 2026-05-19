@@ -11,7 +11,8 @@ while($user = $stmt->fetchObject()) {
     $resposta .= "<tr> 
     <td>$user->cor </td> 
     <td> $user->tamanho </td> 
-    </tr>";
+    <td><button class='excluir' id='$user->ID'>Excluir</button></td>
+    <tr>";
 }
  $resposta.="</table>";
 echo $resposta;

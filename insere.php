@@ -1,14 +1,19 @@
 <?php
+include_once 'conecta.php';
+include_once 'Consulta3.php';
 
-include ("conecta.php");
+$cor = $_POST["campo1"];
+$tamanho = $_POST["campo2"];
 
-$cor = $_POST['campo1'];
-$tamanho = $_POST['campo2'];
+try {
+    $sql = "INSERT INTO db_loja (cor, tamanho) VALUES ('$cor', '$tamanho')";
 
-if ($conn->query("INSERT INTO `db_loja`(`cor`,`tamanho`) VALUES ('$cor', '$tamanho')")) {
-    echo "Concluído";
-} else {
-    echo "Erro ao concluir ";
+    if ($conn->exec($sql)) {
+        tabela();
+    } else {
+        echo "Erro ao concluir";
+    }
+} catch (PDOException $e) {
+    echo "Erro no banco: " . $e->getMessage();
 }
-
 ?>

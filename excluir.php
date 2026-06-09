@@ -1,12 +1,19 @@
 <?php
-include 'conecta.php';
-include 'Consulta3.php';
+
+include_once 'conecta.php';
 
 $id = $_POST['id'];
-$sql = "DELETE FROM db_loja WHERE ID = ' ".$id.' " ';
-if($pdo->query($sql)){
-    consultar();
-} else {
-    echo "Erro ao excluir";
+
+try {
+
+    $sql = "DELETE FROM db_loja WHERE id = '$id'";
+
+    $conn->exec($sql);
+
+} catch (PDOException $e) {
+
+    echo $e->getMessage();
+
 }
+
 ?>

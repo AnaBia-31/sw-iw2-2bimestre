@@ -6,15 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="camisetas.css" rel="stylesheet" type="text/css">
     <title>Cadastro de Camisetas</title>
 </head>
 
 <body>
-    <style>
-        .body {
-            background-color: pink
-        }
-    </style>
+
     <div class="container mt-5">
         <h1 class="mb-4">Registrar sua camiseta</h1>
 
@@ -116,9 +113,7 @@
 
                     <div class="modal-header">
                         <h5 class="modal-title">Confirmar exclusão</h5>
-                        <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
                         </button>
                     </div>
 
@@ -127,15 +122,11 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Cancelar
                         </button>
 
-                        <button type="button"
-                            class="btn btn-danger"
-                            id="btnConfirmarExcluir">
+                        <button type="button" class="btn btn-danger" id="btnConfirmarExcluir">
                             Excluir
                         </button>
                     </div>
@@ -155,10 +146,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             // Btn inserir
-            $('#Btn').click(function(e) {
+            $('#Btn').click(function (e) {
                 e.preventDefault();
 
                 var cor = $('#BoxColor').val();
@@ -169,36 +160,36 @@
                 var tamanho = $('#BoxTamanho').val();
 
                 $.ajax({
-                    url: "inserir.php",
+                    url: "insere.php",
                     type: "POST",
                     dataType: "json",
                     data: {
                         cor: cor,
                         tamanho: tamanho,
                     }
-                }).done(function(resposta) {
+                }).done(function (resposta) {
                     console.log(resposta.status);
                     console.log(resposta.message);
 
-                    $('#Resposta').load('Consulta3.php');
+                    $('#Resposta').load('Consulta3.php', 'mostrar.php');
 
                     // Fecha o modal automaticamente após o cadastro com sucesso
                     bootstrap.Modal.getInstance(document.getElementById('modalCadastro')).hide();
 
-                }).fail(function(jqXHR, textStatus) {
+                }).fail(function (jqXHR, textStatus) {
                     console.log("Request failed: " + textStatus);
-                }).always(function() {
+                }).always(function () {
                     console.log("Completou");
                 });
             });
 
             //Btn Pegar IdExcluir
-            $(document).on("click", ".excluir", function() {
+            $(document).on("click", ".excluir", function () {
                 $('#modalExcluir').data('id', $(this).data('id'));
             });
 
             //Btn Excluir
-            $(document).on("click", "#btnConfirmarExcluir", function(e) {
+            $(document).on("click", "#btnConfirmarExcluir", function (e) {
                 var id = $('#modalExcluir').data('id');
 
                 console.log("ID enviado:", id);
@@ -210,7 +201,7 @@
                     data: {
                         id: id
                     },
-                }).done(function(resposta) {
+                }).done(function (resposta) {
 
                     console.log(resposta.status);
                     console.log(resposta.message);
@@ -221,16 +212,16 @@
                         .getInstance(document.getElementById('modalExcluir'))
                         .hide();
 
-                }).fail(function(jqXHR, textStatus) {
+                }).fail(function (jqXHR, textStatus) {
                     console.log("Request failed: " + textStatus);
 
-                }).always(function() {
+                }).always(function () {
                     console.log("completou");
                 });
             });
 
             //Abrir o modal de Editar preenchido
-            $(document).on("click", ".editar", function() {
+            $(document).on("click", ".editar", function () {
                 var id = $(this).data("id");
 
                 $.ajax({
@@ -240,7 +231,7 @@
                     data: {
                         id: id,
                     }
-                }).done(function(resposta) {
+                }).done(function (resposta) {
 
                     console.log(resposta.status);
                     console.log(resposta.message);
@@ -253,7 +244,7 @@
                         document.getElementById('ModalEdit')
                     ).show();
 
-                }).fail(function(jqXHR, textStatus) {
+                }).fail(function (jqXHR, textStatus) {
 
                     console.log("Status:", textStatus);
                     console.log("Resposta:", jqXHR.responseText);
@@ -264,7 +255,7 @@
 
 
             //Btn Salvar Edição
-            $(document).on("click", "#BtnSalvarEdit", function(e) {
+            $(document).on("click", "#BtnSalvarEdit", function (e) {
                 e.preventDefault();
 
                 var id = $('#EditId').val();
@@ -286,14 +277,14 @@
                         tamanho: tamanho
                     }
 
-                }).done(function(resposta) {
+                }).done(function (resposta) {
                     console.log(resposta.status);
                     console.log(resposta.message);
 
                     $('#Resposta').load('Consulta3.php');
 
                     bootstrap.Modal.getInstance(document.getElementById('ModalEdit')).hide();
-                }).fail(function(jqXHR, textStatus) {
+                }).fail(function (jqXHR, textStatus) {
                     console.log("Erro ao atualizar: " + textStatus);
                 });
             });

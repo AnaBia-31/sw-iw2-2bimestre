@@ -93,4 +93,8 @@ function tabela()
     }
 }
 
+if (basename($_SERVER['SCRIPT_FILENAME']) == 'Consulta3.php' && !isset($_POST['id'])) {
+    tabela();
+}
+
 ?>

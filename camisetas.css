@@ -1,0 +1,103 @@
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+    body {
+        background: linear-gradient(to bottom, #ffe5ec, #fff0f3);
+        color: #333333;
+        font-family: 'Montserrat', sans-serif;
+        min-height: 100vh;
+    }
+
+    h1 {
+        font-weight: 700;
+        color: #ff8fab;
+        margin-bottom: 30px;
+    }
+
+    .btn-primary {
+        background-color: #ffb3c6;
+        border: none;
+        color: white;
+        font-weight: 600;
+        border-radius: 8px;
+    }
+    .btn-primary:hover {
+        background-color: #ff8fab; 
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #ffb3c6;
+        border: none;
+        color: white;
+        font-weight: 600;
+        border-radius: 8px;
+    }
+
+    .btn-success {
+        background-color: #ffb3c6;
+        border: none;
+        color: white;
+        font-weight: 600;
+        border-radius: 8px;
+    }
+    .table {
+        background-color: white !important;
+        border: 1px solid #ffc2d1;
+        border-radius: 8px;
+    }
+    .table-dark {
+        background-color: #ffe5ec !important;
+        color: #ff758f !important;
+        border-bottom: 2px solid #ffc2d1 !important;
+    }
+
+    .table-striped>tbody>tr:nth-of-type(odd)>* {
+        background-color: #fdfbfb !important;
+    }
+
+    .table-hover>tbody>tr:hover>* {
+        background-color: #ffe5ec !important;
+    }
+
+    .btn-warning.editar {
+        background-color: #ffe3a8;
+        border: 1px solid #ffd075;
+        color: #665023;
+        font-weight: 600;
+    }
+    .btn-warning.editar:hover {
+        background-color: #ffd075;
+    }
+
+    .btn-danger.excluir {
+        background-color: #ff8fab;
+        border: none;
+        color: white;
+        font-weight: 600;
+    }
+    .btn-danger.excluir:hover {
+        background-color: #ff758f;
+    }
+
+    
+    .modal-content {
+        background-color: #ffffff;
+        border: 2px solid #ffe5ec;
+        border-radius: 12px;
+    }
+    .modal-header {
+        color: #ff8fab;
+        border-bottom: 1px solid #ffe5ec;
+    }
+    .modal-footer {
+        border-top: 1px solid #ffe5ec;
+    }
+
+    .form-control, .form-select {
+        border: 1px solid #ffc2d1;
+        border-radius: 6px;
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: #ff8fab;
+        box-shadow: 0 0 0 0.2cpx rgba(255, 143, 171, 0.25);
+    }

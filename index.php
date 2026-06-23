@@ -4,261 +4,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Cadastro de Camisetas</title>
-
-    <!-- Bootstrap porque ninguém merece fazer CSS do zero -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- JQuery porque AJAX sozinho dá medo -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
 </head>
 
-<!-- Fundo lilás porque sim -->
-<body style="background-color:#f8f5ff;">
-
-    <!-- Container principal -->
+<body>
+    <style>
+        .body {
+            background-color: pink
+        }
+    </style>
     <div class="container mt-5">
+        <h1 class="mb-4">Registrar sua camiseta</h1>
 
-        <!-- Card bonitinho do sistema -->
-        <div class="card shadow">
+        <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalCadastro">
+            Nova Camiseta
+        </button>
 
-            <!-- Cabeçalho -->
-            <div class="card-header text-white" style="background-color:#6f42c1;">
+        <div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalCadastroLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-                <h3 class="mb-0"> Cadastro de Camisetas </h3>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCadastroLabel">Cadastrar Nova Camiseta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
-            </div>
+                    <div class="modal-body">
+                        <form id="formCamisa">
+                            <div class="mb-3">
+                                <label for="BoxColor" class="form-label">Cor da Camiseta</label>
+                                <input type="text" class="form-control" placeholder="Coloque a cor da camisa"
+                                    id="BoxColor">
+                            </div>
 
-            <div class="card-body">
+                            <div class="mb-3">
+                                <label for="BoxTamanho" class="form-label">Tamanho</label>
+                                <select id="BoxTamanho" class="form-select">
+                                    <option value="">Escolha um tamanho</option>
+                                    <option value="PP">PP</option>
+                                    <option value="P">P</option>
+                                    <option value="M">M</option>
+                                    <option value="G">G</option>
+                                    <option value="GG">GG</option>
+                                    <option value="XG">XG</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
 
-                <!-- Botão que abre o modal -->
-                <button class="btn text-white mb-3" style="background-color:#6f42c1;" data-bs-toggle="modal"
-                    data-bs-target="#modalCamiseta">
-
-                    Nova Camiseta
-
-                </button>
-
-                <!-- Onde aparecem as mensagens tipo "deu certo!" -->
-                <div id="mensagem"></div>
-
-                <!-- Onde a tabela vai surgir magicamente -->
-                <div id="resultado"></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalCamiseta" tabindex="-1">
-
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-
-                <!-- Cabeçalho do modal -->
-                <div class="modal-header">
-
-                    <h5 class="modal-title">
-                        Cadastrar Camiseta
-                    </h5>
-
-                    <!-- Botão de fechar -->
-                    <button type="button" class="btn-close" data-bs-dismiss="modal">
-                    </button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" id="Btn" class="btn btn-success">Registrar</button>
+                    </div>
 
                 </div>
+            </div>
+        </div>
 
-                <div class="modal-body">
+        <!-- Modal de Editar -->
 
-                    <!-- Formulário -->
-                    <form id="formulario">
+        <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="ModalEditLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-                        <!-- Escolha da cor -->
-                        <div class="mb-3">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalEditLabel">Editar Camiseta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
-                            <label class="form-label">
-                                Cor
-                            </label>
+                    <div class="modal-body">
+                        <form id="formEditarCamisa">
+                            <input type="hidden" id="EditId">
 
-                            <select name="campo1" class="form-select" required>
+                            <div class="mb-3">
+                                <label for="EditColor" class="form-label">Cor da Camiseta</label>
+                                <input type="text" class="form-control" id="EditColor">
+                            </div>
 
-                                <option value="">Selecione</option>
-                                <option>Azul</option>
-                                <option>Amarelo</option>
-                                <option>Branco</option>
-                                <option>Preto</option>
-                                <option>Rosa</option>
-                                <option>Roxo</option>
+                            <div class="mb-3">
+                                <label for="EditTamanho" class="form-label">Tamanho</label>
+                                <select id="EditTamanho" class="form-select">
+                                    <option value="">Escolha um tamanho</option>
+                                    <option value="PP">PP</option>
+                                    <option value="P">P</option>
+                                    <option value="M">M</option>
+                                    <option value="G">G</option>
+                                    <option value="GG">GG</option>
+                                    <option value="XG">XG</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
 
-                            </select>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" id="BtnSalvarEdit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
 
-                        </div>
+                </div>
+            </div>
+        </div>
 
-                        <!-- Escolha do tamanho -->
-                        <div class="mb-3">
+        <!-- MODAL DE CONFIRMAR EXCLUSAO -->
 
-                            <label class="form-label">
-                                Tamanho
-                            </label>
+        <div class="modal fade" id="modalExcluir" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
 
-                            <select name="campo2" class="form-select" required>
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmar exclusão</h5>
+                        <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                        </button>
+                    </div>
 
-                                <option value="">Selecione</option>
-                                <option>PP</option>
-                                <option>P</option>
-                                <option>M</option>
-                                <option>G</option>
-                                <option>GG</option>
-                                <option>XG</option>
+                    <div class="modal-body">
+                        Deseja realmente excluir esta camisa?
+                    </div>
 
-                            </select>
-
-                        </div>
-
-                        <!-- Botão que manda tudo pro banco -->
-                        <button type="submit" class="btn text-white" style="background-color:#6f42c1;">
-
-                            Salvar
-
+                    <div class="modal-footer">
+                        <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                            Cancelar
                         </button>
 
-                    </form>
+                        <button type="button"
+                            class="btn btn-danger"
+                            id="btnConfirmarExcluir">
+                            Excluir
+                        </button>
+                    </div>
 
                 </div>
-
             </div>
-
         </div>
 
+        <div id="Resposta" class="mt-4">
+            <?php
+            include "Consulta3.php";
+            tabela();
+            ?>
+        </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
+        $(document).ready(function() {
 
-        // Função que carrega a tabela, traduzindo: "vai lá no PHP e traz os dados"
-        function carregarTabela() {
-
-            $.ajax({
-
-                url: "mostrar.php",
-
-                success: function (retorno) {
-
-                    // Coloca a tabela dentro da div resultado
-                    $("#resultado").html(retorno);
-
-                }
-
-            });
-
-        }
-
-        // Quando a página terminar de carregar...
-        $(document).ready(function () {
-
-            // Já mostra a tabela
-            carregarTabela();
-
-            // Quando o formulário for enviado
-            $("#formulario").submit(function (e) {
-
-                // Impede a página de recarregar
+            // Btn inserir
+            $('#Btn').click(function(e) {
                 e.preventDefault();
 
+                var cor = $('#BoxColor').val();
+                if (cor == '') {
+                    alert('Preencha a cor da camiseta');
+                    return;
+                }
+                var tamanho = $('#BoxTamanho').val();
+
                 $.ajax({
-
-                    // Arquivo que salva os dados
-                    url: "insere.php",
-
+                    url: "inserir.php",
                     type: "POST",
-
-                    // Envia os dados do formulário
-                    data: $(this).serialize(),
-
-                    success: function (retorno) {
-
-                        // Atualiza a tabela
-                        $("#resultado").html(retorno);
-
-                        // Mensagem de sucesso porque autoestima do usuário importa
-                        $("#mensagem").html(`
-                            <div class="alert alert-success alert-dismissible fade show">
-                                ✅ Camiseta cadastrada com sucesso!
-                            </div>
-                        `);
-
-                        // Faz a mensagem desaparecer depois de 3 segundos
-                        setTimeout(function () {
-                            $("#mensagem").html("");
-                        }, 3000);
-
-                        // Limpa o formulário
-                        $("#formulario")[0].reset();
-
-                        // Fecha o modal porque já salvou mesmo
-                        let modal = bootstrap.Modal.getInstance(
-                            document.getElementById('modalCamiseta')
-                        );
-
-                        modal.hide();
-
+                    dataType: "json",
+                    data: {
+                        cor: cor,
+                        tamanho: tamanho,
                     }
+                }).done(function(resposta) {
+                    console.log(resposta.status);
+                    console.log(resposta.message);
 
+                    $('#Resposta').load('Consulta3.php');
+
+                    // Fecha o modal automaticamente após o cadastro com sucesso
+                    bootstrap.Modal.getInstance(document.getElementById('modalCadastro')).hide();
+
+                }).fail(function(jqXHR, textStatus) {
+                    console.log("Request failed: " + textStatus);
+                }).always(function() {
+                    console.log("Completou");
                 });
-
             });
 
-            // Quando clicar em excluir...
-            $(document).on("click", ".excluir", function () {
+            //Btn Pegar IdExcluir
+            $(document).on("click", ".excluir", function() {
+                $('#modalExcluir').data('id', $(this).data('id'));
+            });
 
-                // Pega o id do registro
-                let id = $(this).data("id");
+            //Btn Excluir
+            $(document).on("click", "#btnConfirmarExcluir", function(e) {
+                var id = $('#modalExcluir').data('id');
+
+                console.log("ID enviado:", id);
 
                 $.ajax({
-
-                    // Arquivo responsável por apagar a camiseta
                     url: "excluir.php",
-
                     type: "POST",
-
+                    dataType: "json",
                     data: {
                         id: id
                     },
+                }).done(function(resposta) {
 
-                    success: function (retorno) {
+                    console.log(resposta.status);
+                    console.log(resposta.message);
 
-                        // Atualiza a tabela
-                        $("#resultado").html(retorno);
+                    window.location.reload();
 
-                        // Mensagem de despedida da camiseta
-                        $("#mensagem").html(`
-                            <div class="alert alert-warning alert-dismissible fade show">
-                                🗑️ Camiseta removida com sucesso!
-                            </div>
-                        `);
+                    bootstrap.Modal
+                        .getInstance(document.getElementById('modalExcluir'))
+                        .hide();
 
-                        // A mensagem também some
-                        setTimeout(function () {
-                            $("#mensagem").html("");
-                        }, 3000);
+                }).fail(function(jqXHR, textStatus) {
+                    console.log("Request failed: " + textStatus);
 
+                }).always(function() {
+                    console.log("completou");
+                });
+            });
+
+            //Abrir o modal de Editar preenchido
+            $(document).on("click", ".editar", function() {
+                var id = $(this).data("id");
+
+                $.ajax({
+                    url: "Consulta3.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        id: id,
                     }
+                }).done(function(resposta) {
+
+                    console.log(resposta.status);
+                    console.log(resposta.message);
+
+                    $("#EditId").val(resposta.codigo);
+                    $("#EditColor").val(resposta.cor);
+                    $("#EditTamanho").val(resposta.tamanho);
+
+                    new bootstrap.Modal(
+                        document.getElementById('ModalEdit')
+                    ).show();
+
+                }).fail(function(jqXHR, textStatus) {
+
+                    console.log("Status:", textStatus);
+                    console.log("Resposta:", jqXHR.responseText);
 
                 });
 
             });
 
+
+            //Btn Salvar Edição
+            $(document).on("click", "#BtnSalvarEdit", function(e) {
+                e.preventDefault();
+
+                var id = $('#EditId').val();
+                var cor = $('#EditColor').val();
+                var tamanho = $('#EditTamanho').val();
+
+                if (cor == '') {
+                    alert("Preencha a cor da camiseta");
+                    return;
+                }
+
+                $.ajax({
+                    url: "atualizar.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        id: id,
+                        cor: cor,
+                        tamanho: tamanho
+                    }
+
+                }).done(function(resposta) {
+                    console.log(resposta.status);
+                    console.log(resposta.message);
+
+                    $('#Resposta').load('Consulta3.php');
+
+                    bootstrap.Modal.getInstance(document.getElementById('ModalEdit')).hide();
+                }).fail(function(jqXHR, textStatus) {
+                    console.log("Erro ao atualizar: " + textStatus);
+                });
+            });
         });
-
     </script>
-
-    <!-- JavaScript do Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>
